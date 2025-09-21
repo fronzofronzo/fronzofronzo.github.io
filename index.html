@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/night.css">
+		<link rel="stylesheet" href="dist/theme/league.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -80,7 +80,20 @@
 							\[ H^{(l+1)}= \sigma(\tilde{A}H^{(l)}W^{(l)})\]
 						</div>
 					</div>
-					<div
+				</section>
+				<section>
+					<h3>GCN-Denoiser</h3>
+					<div class="r-stack">
+						<img class="fragment current-visible" src="images/gcn-pipeline.png">
+						<div class="fragment current-visible">
+							<ol>
+								<li><div style="display: flex; align-items: center; gap: 10px;">Generazione di patch locali per ogni faccia<img src="images/local_patch-removebg-preview.png" width="100"></div></li>
+								<li><div style="display: flex; align-items: center; gap: 10px;">Costruzione del grafo per ogni patch<img src="images/local_graph-removebg-preview.png" width="100"></div></li>
+								<li><div style="display: flex; align-items: center; gap: 10px;">Utilizzo dei dati di input per predizione delle normali </div></li>
+								<li>Aggiornamento dei vertici usando le normali predette</li>
+							</ol>
+						</div>
+					</div>
 				</section>
 			</div>
 		</div>
