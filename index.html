@@ -27,8 +27,8 @@
 					<h3>Obiettivi</h3>
 					<ul class="r-fit-text">
 						<li class="fragment">Studio della struttura delle mesh e loro rappresentazione</li>
-						<li class="fragment">Studio delle Graph Convolutional Network e applicazione di queste per operazioni su mesh</li>
-						<li class="fragment">Studio approfondito della GCN-Denoiser per il denoising di mesh</li>
+						<li class="fragment">Studio delle <b style="color: gold;">Graph Convolutional Network</b> e applicazione di queste per operazioni su mesh</li>
+						<li class="fragment">Studio approfondito della <b style="color: gold;">GCN-Denoiser</b> per il denoising di mesh</li>
 						<li class="fragment">Implementazione della GCN-Denoiser (generazione dati, rete, allenamento) in Python</li>
 						<li class="fragment">Analisi e implementazione di modifiche migliorative della rete</li>
 					</ul>
@@ -87,10 +87,10 @@
 						<img class="fragment current-visible" src="images/gcn-pipeline.png">
 						<div class="fragment current-visible">
 							<ol>
-								<li><div style="display: flex; align-items: center; gap: 10px;">Generazione di patch locali per ogni faccia<img src="images/local_patch-removebg-preview.png" width="100"></div></li>
-								<li><div style="display: flex; align-items: center; gap: 10px;">Costruzione del grafo per ogni patch<img src="images/local_graph-removebg-preview.png" width="100"></div></li>
-								<li><div style="display: flex; align-items: center; gap: 10px;">Utilizzo dei dati di input per predizione delle normali </div></li>
-								<li>Aggiornamento dei vertici usando le normali predette</li>
+								<li><div style="display: flex; align-items: center; gap: 10px;">Generazione di <b style="color: gold;">patch</b> locali per ogni faccia<img src="images/local_patch-removebg-preview.png" width="100"></div></li>
+								<li><div style="display: flex; align-items: center; gap: 10px;">Costruzione del <b style="color: gold;">grafo</b> per ogni patch<img src="images/local_graph-removebg-preview.png" width="100"></div></li>
+								<li><div style="display: flex; align-items: center; gap: 10px;">Utilizzo dei dati di input per <b style="color: gold;">predizione</b> delle normali </div></li>
+								<li><b style="color: gold;">Aggiornamento</b> dei vertici usando le normali predette</li>
 							</ol>
 						</div>
 					</div>
@@ -99,6 +99,13 @@
 					<h3>Selezione delle patch</h3>
 					<div class="r-stack">
 						<div class="fragment current-visible">
+							Per ogni faccia della mesh viene generata una patch locale, che comprende un insieme di facce vicine...
+						</div>
+						<div class="fragment current-visible">
+							<p>...ma come vengono scelte le facce? </p>
+						</div>
+						<div class="fragment current-visible">
+							
 							\[
 								\underset{f_j \in p_i}{\forall} \: \underset{v_k \in f_j}{\exists}\quad ||v_k - c_i|| < r; \, r = k\,\bar{a}^{\frac{1}{2}}_i
 							\]
@@ -106,12 +113,13 @@
 						<div class="fragment">
 							<p>Per ogni faccia che appartiene alla patch, si indicano:</p>
 							<ul>
-								<li>Centroide della faccia </li>
-								<li>Normale alla faccia </li>
-								<li>Area della faccia </li>
-								<li>Numero di vicini della faccia</li>
-								<li>Vertici della faccia</li>
+								<li><b style="color: gold;">Centroide</b> della faccia </li>
+								<li><b style="color: gold;">Normale</b> alla faccia </li>
+								<li><b style="color: gold;">Area</b> della faccia </li>
+								<li><b style="color: gold;">Numero dei vicini </b>della faccia</li>
+								<li><b style="color: gold;">Vertici</b> della faccia</li>
 							</ul>
+							<p><i>Tutti gli attributi vengono normalizzati</i></p>
 						</div>
 					</div>
 				</section>
@@ -128,7 +136,7 @@
 						<div class="fragment">
 							<p>La convoluzione non è solo statica...</p>
 							<p class="fragment">... ma anche dinamica</p>
-							<p class="fragment">Il grafo viene ricostruito in maniera dinamica usando l'algoritmo K-nearest-neighbors (KNN)
+							<p class="fragment">Il grafo viene ricostruito in maniera dinamica usando l'algoritmo <b style="color: gold;">K-nearest-neighbors (KNN)</b>
 							\[
 								\mathcal{N}_k(f_i) = \underset{S \subset \mathcal{F}, |S|=k}{\text{argmin}} \sum_{f_j \in S} d(f_i, f_j)
 							\]</p>
@@ -146,7 +154,7 @@
  					<h3>Denoising</h3>
   					<p class="fragment">Prevede due fasi:</p>
 						<div class="fragment ">
-							<p > 1. Raffinamento delle normali</p>
+							<p style="color: gold;"> 1. Raffinamento delle normali</p>
 
 							<div class="r-fit-text">
 								\[
@@ -162,7 +170,7 @@
 				<section>
 					<h3>Denoising</h3>
 					<div >
-							<p>2. Aggiornamento dei vertici</p>
+							<p style="color: gold;">2. Aggiornamento dei vertici</p>
 							<div class="r-fit-text">
 								\[
 									v^{k+1}_i = v_i^k + \frac{1}{3|\Omega^{'}_i|} \sum_{f_j \in \Omega^{'}_i} \sum_{e_{ij} \in \partial f_j} n_j^g \, [ n_j^g \cdot (v_j^k - v_i^k)]
