@@ -139,7 +139,7 @@
 					<h3>Training</h3>
 					<div class="r-stack">
 						<img class="fragment current-visible" width="70%" src="images/training_set-Photoroom.png">
-						<img class="fragment current-visible" src="images/noise_yellow.png">
+						<img class="fragment current-visible" src="images/noise.png">
 					</div>
 				</section>
 				<section>
@@ -169,6 +169,27 @@
 								\]
 							</div>
 							<img src="images/vertex_updating.png" width="50%"/>
+					</div>
+				</section>
+				<section>
+					<h3>Modifiche alla rete</h3>
+					<p>Si introducono due nuove features</p>
+					<div class="r-stack">
+						<div class="fragment">
+							<p>$\alpha^n$: angolo di intensità del rumore</p>
+							\[ \alpha^n = \text{acos}(n_i \cdot n_i^M)\]
+							<p class="fragment">Perche? <i class="material-icons" style="font-size:35px">trending_flat</i> La rete originale non era in grado di ricostruire una superficie se coperta da rumore ad alta intensità</p>
+							
+						</div>
+					</div>
+				</section>
+				<section>
+					<h3>Modifiche alla rete</h3>
+					<div>
+						<p>$\alpha^g$: angolo delle carattaristiche geometriche</p>
+						\[ \alpha^g_i = \max_{f_j \in \mathbb{P}^2_i}\,\max_{f_l \in \mathbb{P}^2_i}\, \text{acos}(n_j^M \cdot n_l^M).\]
+						<p class="fragment">Perche? <i class="material-icons" style="font-size:35px">trending_flat</i> La rete originale assume che la natura del rumore e delle caratteristiche geometriche sia diversa</p>
+						
 					</div>
 				</section>
 			</div>
