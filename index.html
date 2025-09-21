@@ -135,6 +135,42 @@
 						</div>
 					</div>
 				</section>
+				<section>
+					<h3>Training</h3>
+					<div class="r-stack">
+						<img class="fragment current-visible" width="70%" src="images/training_set-Photoroom.png">
+						<img class="fragment current-visible" src="images/noise_yellow.png">
+					</div>
+				</section>
+				<section>
+ 					<h3>Denoising</h3>
+  					<p class="fragment">Prevede due fasi:</p>
+						<div class="fragment ">
+							<p > 1. Raffinamento delle normali</p>
+
+							<div class="r-fit-text">
+								\[
+									\begin{aligned}
+									\dot n_i &= \operatorname{normalize}\Big(  \sum_{f_j\in\Omega_i} a_j W_s(\|c_j-c_i\|) W_r(\|\hat n_j-\hat n_i\|)\,\hat n_j
+									\Big)
+									\end{aligned}
+								\]
+							</div>
+							<p class="fragment"> Perché? <i class="material-icons" style="font-size:36px">trending_flat</i> regolarizzare le normali e evitare discontinuità locali</p>
+					</div>
+				</section>
+				<section>
+					<h3>Denoising</h3>
+					<div >
+							<p>2. Aggiornamento dei vertici</p>
+							<div class="r-fit-text">
+								\[
+									v^{k+1}_i = v_i^k + \frac{1}{3|\Omega^{'}_i|} \sum_{f_j \in \Omega^{'}_i} \sum_{e_{ij} \in \partial f_j} n_j^g \, [ n_j^g \cdot (v_j^k - v_i^k)]
+								\]
+							</div>
+							<img src="images/vertex_updating.png" width="50%"/>
+					</div>
+				</section>
 			</div>
 		</div>
 
