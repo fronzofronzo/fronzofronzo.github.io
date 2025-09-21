@@ -95,6 +95,46 @@
 						</div>
 					</div>
 				</section>
+				<section>
+					<h3>Selezione delle patch</h3>
+					<div class="r-stack">
+						<div class="fragment current-visible">
+							\[
+								\underset{f_j \in p_i}{\forall} \: \underset{v_k \in f_j}{\exists}\quad ||v_k - c_i|| < r; \, r = k\,\bar{a}^{\frac{1}{2}}_i
+							\]
+						</div>
+						<div class="fragment">
+							<p>Per ogni faccia che appartiene alla patch, si indicano:</p>
+							<ul>
+								<li>Centroide della faccia </li>
+								<li>Normale alla faccia </li>
+								<li>Area della faccia </li>
+								<li>Numero di vicini della faccia</li>
+								<li>Vertici della faccia</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h3>Architettura della rete</h3>
+					<div class="r-stack">
+						<img class="fragment current-visible" src="images/network-architecture.png"/>
+						<div class="fragment current-visible">
+							L'operazione di convoluzione EdgeConv è definita come:
+							\[
+								F^i_{l+1} = \underset{j:(i,j) \in E_l }{\Psi}\,h^l_{\Theta}\,(F^i_l, F^j_l),
+							\]
+						</div>
+						<div class="fragment">
+							<p>La convoluzione non è solo statica...</p>
+							<p class="fragment">... ma anche dinamica</p>
+							<p class="fragment">Il grafo viene ricostruito in maniera dinamica usando l'algoritmo K-nearest-neighbors (KNN)
+							\[
+								\mathcal{N}_k(f_i) = \underset{S \subset \mathcal{F}, |S|=k}{\text{argmin}} \sum_{f_j \in S} d(f_i, f_j)
+							\]</p>
+						</div>
+					</div>
+				</section>
 			</div>
 		</div>
 
