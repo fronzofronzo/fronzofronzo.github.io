@@ -12,6 +12,7 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	</head>
 	<body>
 		<div class="reveal">
@@ -36,7 +37,7 @@
 					<h3 >MESH</h3>
 						<p>Da cosa sono caratterizzate?</p>
 						<div class="r-stack ">
-							<img class="fragment fade-out" src="images/mesh.png">
+							<img class="fragment current-visible" src="images/mesh.png">
 							<div class="fragment current-visible" style="width: 100%;">
     						<div class="mesh-item" style="width: 33%;float: left;">
       							<p>Vertici </p>
@@ -54,6 +55,33 @@
 						</div>
 						
 				</section>
+				<section>
+					<h3>Mesh <i class="material-icons" style="font-size:36px">trending_flat</i> Grafo</h3>
+					<div class="fragment">
+						<img width="70%" src="images/mesh_to_graph.jpg">
+						<p>Facce <i class="material-icons" style="font-size:36px">trending_flat</i> Nodi</p>
+						<p>Spigoli <i class="material-icons" style="font-size:36px">trending_flat</i> Archi</p>
+					</div>
+				</section>
+				<section>
+					<h3>Graph Convolutional Network</h3>
+					<div class="r-stack">
+						<img class="fragment current-visible" src="images/gcn-general.png" />
+						<div class="fragment current-visible">
+							<ol>
+								<li>Input Layer</li>
+								<li>Hidden Layers (Grah convolutional layers, Activaction functions, Pooling Layers)</li>
+								<li>Output Layer</li>
+								<li>Fully Connected Layers</li>
+							</ol>
+						</div>
+						<div class="fragment">
+							<img  src="images/gcn-architecture.png">
+							\[ H^{(l+1)}= \sigma(\tilde{A}H^{(l)}W^{(l)})\]
+						</div>
+					</div>
+					<div
+				</section>
 			</div>
 		</div>
 
@@ -61,6 +89,7 @@
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
+		<script src="plugin/math/math.js"></script>
 		<script>
 			// More info about initialization & config:
 			// - https://revealjs.com/initialization/
@@ -69,7 +98,7 @@
 				hash: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX]
 			});
 		</script>
 	</body>
