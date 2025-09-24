@@ -18,19 +18,24 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h3>Studio e Applicazione di Graph Convolutional Network per il denoising di mesh 3D</h3>
+					<div class="r-fit-text">
+						<p>Dipartimento di Informatica - Scienza e Ingegneria</p>
+					<p>Corso di Laurea in Ingegneria e Scienze Informatiche</p>
+					<h2>Studio e Applicazione di Graph Convolutional Network per il denoising di mesh 3D</h2>
 					<p>Presentata da: Gabriele Fronzoni </p>
 					<p>Relatore: Prof. Damiana Lazzaro</p>
+					<p>Sessione Unica</p>
+					<p>Anno Accademico 2024/2025</p>
+					</div>
 				</section>
 				<section>
 					<img src="images/Dolphin_triangle_mesh-Photoroom.png">
 					<h3>Obiettivi</h3>
 					<ul class="r-fit-text">
-						<li class="fragment">Studio della struttura delle mesh e loro rappresentazione</li>
-						<li class="fragment">Studio delle <b style="color: gold;">Graph Convolutional Network</b> e applicazione di queste per operazioni su mesh</li>
-						<li class="fragment">Studio approfondito della <b style="color: gold;">GCN-Denoiser</b> per il denoising di mesh</li>
-						<li class="fragment">Implementazione della GCN-Denoiser (generazione dati, rete, allenamento) in Python</li>
-						<li class="fragment">Analisi e implementazione di modifiche migliorative della rete</li>
+						<li class="fragment">Studio <b style="color: gold;">Graph Convolutional Network</b> per operazioni su mesh</li>
+						<li class="fragment" ><div style="display: flex; align-items: center;"><b style="color: gold;">GCN-Denoiser</b> <i class="material-icons"style="font-size:36px">arrow_right_alt</i> denoising di mesh<div></li>
+						<li class="fragment"><div style="display: flex; align-items: center;">Implementazione della rete <i class="material-icons"style="font-size:36px">arrow_right_alt</i> Python</div></li>
+						<li class="fragment">Modifiche migliorative</li>
 					</ul>
 				</section>
 				<section>
@@ -75,6 +80,28 @@
 								<li>Fully Connected Layers</li>
 							</ol>
 						</div>
+						<div class="fragment current-visible">
+							<ol class="r-stretch">
+								<li>Struttura dei dati:
+									<ul>
+										<li><b>CNN</b>: dati con struttura regolare</li>
+										<li><b>GCN</b>: dati non strutturati rappresentabili come grafi</li>
+									</ul>
+								</li>
+								<li>Operazione di convoluzione
+									<ul>
+										<li><b>CNN</b>: aggrega le informazioni dei vicini spaziali</li>
+										<li><b>GCN</b>: aggregazione di informazioni dei nodi vicini nel grafo</li>
+									</ul>
+								</li>
+								<li>Invarianza
+									<ul>
+										<li><b>CNN</b>: invarianza a traslazione</li>
+										<li><b>GCN</b>: invarianza a permutazione</li>
+									</ul>
+								</li>
+							</ol>
+						</div>
 						<div class="fragment">
 							<img  src="images/gcn-architecture.png">
 							\[ H^{(l+1)}= \sigma(\tilde{A}H^{(l)}W^{(l)})\]
@@ -94,6 +121,32 @@
 							</ol>
 						</div>
 					</div>
+				</section>
+				<section>
+					<h3>GCN-Denoiser</h3>
+					<pre><code data-line-numbers="5|6-7|10|11-15|16-20">
+						def: training_gcns(K, NumEpochs):
+							GCN = [GCN_1, ..., GCN_k]
+							opt_function = [opt_1, ..., opt_k]
+							loss = MSE(n, n_gt)
+							for epoch in range(NumEpochs):
+								for each batch in TrainingSet:
+									n_curr = n_noise
+									loss_t = 0
+									for i in range(K):
+										G = build_graph(n_curr)
+										n_pred = GCN[i].forward(G)
+										loss_s = loss(n_pred, n_gt)
+										loss_t += loss_s
+										n_curr = n_pred
+									for i in range(K):
+										opt_function[i].zero_grad()
+									loss_t.backward()
+									for i in range(K):
+										opt_function[i].step()
+								eval_model()
+								print_metrics()
+					</code></pre>
 				</section>
 				<section>
 					<h3>Selezione delle patch</h3>
@@ -148,6 +201,12 @@
 					<div class="r-stack">
 						<img class="fragment current-visible" width="70%" src="images/training_set-Photoroom.png">
 						<img class="fragment current-visible" src="images/noise.png">
+						<div class="fragment current-visible">
+							Misura di errore: Mean Squared Error (MSE):
+							\[
+								MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
+							\]
+						</div>
 					</div>
 				</section>
 				<section>
@@ -204,12 +263,16 @@
 					<h3>Testing e risultati ottenuti</h3>
 					<div class="r-stack">
 						<img class="fragment current-visible" src="images/testing.png">
-						<ul class="fragment current-visible">
-							<li>Per entrambi i modelli, si è considerata la versione migliore ottenuta dopo 25 epoche di training;</li>
-							<li>I modelli sono stati testati su tre mesh, per ognuna delle quali si è generata una versione con rumore da 0.1 a 0.5;</li>
-							<li>Per la rete con le modifiche è stato effettuato uno studio per l'ottimizzazione degli iperparametri;</li>
-							<li>Come misure di errore sono stati utilizzati l'errore medio delle normali ($E_a$) e la distanza di Hausdorff media normalizzata ($E_v$)</li>
+						<ul class="fragment current-visible r-fit-text">
+							<li>25 epoche di training;</li>
+							<li>Versione con rumore gaussiano da 0.1 a 0.5</li>
+							<li>Ottimizzazione degli iperparametri</li>
+							<li>$E_a = \frac{1}{N_f} \sum_{f_i^r \in F^r} \text{acos}(n_i^r \cdot \tilde{n}_i)$ (errore angolare medio)</li> 
+							<li>$E_v = \frac{1}{N_vL_d} \sum_{v_i^r \in \tilde{V}_M} \underset{\tilde{v}_j \in \tilde{V}_M}{\min} ||v_i^r - \tilde{v}_j ||$ (Distanza di Hausdorff media normalizzata)</li>
 						</ul>
+						<div class="fragment current-visible">
+							<p>Vediamo alcuni risultati...</p>
+						</div>
 						<img class="fragment current-visible" src="images/result_chinese_lion_models.png" width="80%">
 						<img class="fragment current-visible" src="images/chinese_lion_error_plot.png" >
 						<img class="fragment current-visible" src="images/result_sharp_sphere_models.png" width="80%">
@@ -217,6 +280,11 @@
 						<img class="fragment current-visible" src="images/result_trim_star_models.png" width="80%">
 						<img class="fragment current-visible" src="images/trim-star_error_plot.png" >
 					</div>
+				</section>
+				<section>
+					<h3>Testing e risultati ottenuti</h3>
+					<p class="fragment">In cosa migliora?</p>
+					<p class="fragment">Recupero della superficie con <b style="color: gold;">alti livelli</b> di rumore</p>
 				</section>
 				<section>
 					<p>Grazie per l'attenzione</p>
