@@ -81,7 +81,7 @@
 							</ol>
 						</div>
 						<div class="fragment current-visible">
-							<ol class="r-stretch">
+							<ul class="r-stretch">
 								<li>Struttura dei dati:
 									<ul>
 										<li><b>CNN</b>: dati con struttura regolare</li>
@@ -94,13 +94,7 @@
 										<li><b>GCN</b>: aggregazione di informazioni dei nodi vicini nel grafo</li>
 									</ul>
 								</li>
-								<li>Invarianza
-									<ul>
-										<li><b>CNN</b>: invarianza a traslazione</li>
-										<li><b>GCN</b>: invarianza a permutazione</li>
-									</ul>
-								</li>
-							</ol>
+							</ul>
 						</div>
 						<div class="fragment">
 							<img  src="images/gcn-architecture.png">
@@ -111,8 +105,8 @@
 				<section>
 					<h3>GCN-Denoiser</h3>
 					<div class="r-stack">
-						<img class="fragment current-visible" src="images/gcn-pipeline.png">
-						<div class="fragment current-visible">
+						<img class="fragment fade-out" src="images/gcn-pipeline.png">
+						<div class="fragment ">
 							<ol>
 								<li><div style="display: flex; align-items: center; gap: 10px;">Generazione di <b style="color: gold;">patch</b> locali per ogni faccia<img src="images/local_patch-removebg-preview.png" width="100"></div></li>
 								<li><div style="display: flex; align-items: center; gap: 10px;">Costruzione del <b style="color: gold;">grafo</b> per ogni patch<img src="images/local_graph-removebg-preview.png" width="100"></div></li>
@@ -124,7 +118,7 @@
 				</section>
 				<section>
 					<h3>GCN-Denoiser</h3>
-					<pre><code data-line-numbers="5|6-7|10|11-15|16-20">
+					<pre><code data-line-numbers="3|6-7|10-15">
 						def: training_gcns(K, NumEpochs):
 							GCN = [GCN_1, ..., GCN_k]
 							opt_function = [opt_1, ..., opt_k]
@@ -179,12 +173,12 @@
 				<section>
 					<h3>Architettura della rete</h3>
 					<div class="r-stack">
-						<img class="fragment current-visible" src="images/network-architecture.png"/>
 						<div class="fragment current-visible">
-							L'operazione di convoluzione EdgeConv è definita come:
-							\[
-								F^i_{l+1} = \underset{j:(i,j) \in E_l }{\Psi}\,h^l_{\Theta}\,(F^i_l, F^j_l),
-							\]
+							<img src="images/network-architecture.png" width="75%"/>
+							<p><b style="color: gold;">EdgeConv</b>:
+								$
+								F^i_{l+1} = \underset{j:(i,j) \in E_l }{\Psi}\,h^l_{\Theta}\,(F^i_l, F^j_l)
+							$</p>
 						</div>
 						<div class="fragment">
 							<p>La convoluzione non è solo statica...</p>
@@ -202,7 +196,7 @@
 						<img class="fragment current-visible" width="70%" src="images/training_set-Photoroom.png">
 						<img class="fragment current-visible" src="images/noise.png">
 						<div class="fragment current-visible">
-							Misura di errore: Mean Squared Error (MSE):
+							Misura di errore: <b style="color: gold;">Mean Squared Error (MSE)</b>:
 							\[
 								MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
 							\]
