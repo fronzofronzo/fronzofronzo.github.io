@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	</head>
-	<body>
+ƒ	<body>
 		<div class="reveal">
 			<div class="slides">
 				<section>
@@ -157,7 +157,11 @@
 								\underset{f_j \in p_i}{\forall} \: \underset{v_k \in f_j}{\exists}\quad ||v_k - c_i|| < r; \, r = k\,\bar{a}^{\frac{1}{2}}_i
 							\]
 						</div>
-						<div class="fragment">
+					</div>
+				</section>
+				<section>
+					<h3>Features</h3>
+					<div>
 							<p>Per ogni faccia che appartiene alla patch, si indicano:</p>
 							<ul>
 								<li><b style="color: gold;">Centroide</b> della faccia </li>
@@ -168,7 +172,6 @@
 							</ul>
 							<p><i>Tutti gli attributi vengono normalizzati</i></p>
 						</div>
-					</div>
 				</section>
 				<section>
 					<h3>Architettura della rete</h3>
@@ -247,11 +250,20 @@
 				<section>
 					<h3>Modifiche alla rete</h3>
 					<div>
-						<p>$\alpha^g$: <b style="color: gold;">angolo delle carattaristiche geometriche</b></p>
+						<p>$\alpha^g$: <b style="color: gold;">angolo delle caratteristiche geometriche</b></p>
 						\[ \alpha^g_i = \max_{f_j \in \mathbb{P}^2_i}\,\max_{f_l \in \mathbb{P}^2_i}\, \text{acos}(n_j^M \cdot n_l^M).\]
 						<p class="fragment">Perche? <i class="material-icons" style="font-size:35px">trending_flat</i> La rete originale assume che la natura del rumore e delle caratteristiche geometriche sia diversa</p>
 						
 					</div>
+				</section>
+				<section>
+					<h3>Modifiche strutturali alla rete</h3>
+					<p>La struttura dell'input cambia...</p>
+					<p class="fragment">...quindi cambia anche la struttura della rete!</p>
+					<ul class="fragment">
+						<li>Aggiunta di un layer di <b style="color: gold;">Dynamic EdgeConv</b></li>
+						<li>Ottimizzazione iperparametri di <b style="color: gold;">batch size</b> e <b style="color: gold;">learning rate</b></li>
+					</ul>
 				</section>
 				<section>
 					<h3>Testing e risultati ottenuti</h3>
@@ -260,7 +272,6 @@
 						<ul class="fragment current-visible r-fit-text">
 							<li>25 epoche di training;</li>
 							<li>Versione con rumore gaussiano da 0.1 a 0.5</li>
-							<li>Ottimizzazione degli iperparametri</li>
 							<li>$E_a = \frac{1}{N_f} \sum_{f_i^r \in F^r} \text{acos}(n_i^r \cdot \tilde{n}_i)$ (errore angolare medio)</li> 
 							<li>$E_v = \frac{1}{N_vL_d} \sum_{v_i^r \in \tilde{V}_M} \underset{\tilde{v}_j \in \tilde{V}_M}{\min} ||v_i^r - \tilde{v}_j ||$ (Distanza di Hausdorff media normalizzata)</li>
 						</ul>
