@@ -42,7 +42,7 @@
 						<p>Da cosa sono caratterizzate?</p>
 						<div class="r-stack ">
 							<img class="fragment current-visible" src="images/mesh.png">
-							<div class="fragment current-visible" style="width: 100%;">
+							<div class="fragment " style="width: 100%;">
     						<div class="mesh-item" style="width: 33%;float: left;">
       							<p>Vertici </p>
       							<img width="150" src="images/vertices.png">
@@ -61,7 +61,7 @@
 				</section>
 				<section>
 					<h3>Mesh <i class="material-icons" style="font-size:36px">trending_flat</i> Grafo</h3>
-					<div class="fragment">
+					<div >
 						<img width="70%" src="images/mesh_to_graph.jpg">
 						<p>Facce <i class="material-icons" style="font-size:36px">trending_flat</i> Nodi</p>
 						<p>Spigoli <i class="material-icons" style="font-size:36px">trending_flat</i> Archi</p>
@@ -71,14 +71,6 @@
 					<h3>Graph Convolutional Network</h3>
 					<div class="r-stack">
 						<img class="fragment current-visible" src="images/gcn-general.png" />
-						<div class="fragment current-visible">
-							<ol>
-								<li>Input Layer</li>
-								<li>Hidden Layers (Grah convolutional layers, Activaction functions, Pooling Layers)</li>
-								<li>Output Layer</li>
-								<li>Fully Connected Layers</li>
-							</ol>
-						</div>
 						<div class="fragment current-visible">
 							<ul class="r-stretch">
 								<li>Struttura dei dati:
@@ -268,9 +260,9 @@
 					<h3>Testing e risultati ottenuti</h3>
 					<div class="r-stack">
 						<img class="fragment current-visible" src="images/testing.png">
+
 						<ul class="fragment current-visible r-fit-text">
-							<li>25 epoche di training;</li>
-							<li>Versione con rumore gaussiano da 0.1 a 0.5</li>
+							
 							<li>$E_a = \frac{1}{N_f} \sum_{f_i^r \in F^r} \text{acos}(n_i^r \cdot \tilde{n}_i)$ (errore angolare medio)</li> 
 							<li>$E_v = \frac{1}{N_vL_d} \sum_{v_i^r \in \tilde{V}_M} \underset{\tilde{v}_j \in \tilde{V}_M}{\min} ||v_i^r - \tilde{v}_j ||$ (Distanza di Hausdorff media normalizzata)</li>
 						</ul>
